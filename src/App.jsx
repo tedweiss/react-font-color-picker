@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import iro from '@jaames/iro'
 
 const HexDisplay = styled.div`
+  background-color: ${props => props.backgroundColor};
   color: ${props => props.color};
+  padding: 20px;
   font-size: 20px;
   text-align: center;
 `
@@ -11,7 +13,11 @@ const HexDisplay = styled.div`
 class App extends Component {
   constructor () {
     super()
-    this.state = { colorPicker: null, textHex: '' }
+    this.state = {
+      colorPicker: null,
+      textHex: '',
+      backgroundColor: ''
+    }
   }
   componentDidMount () {
     var colorPicker = new iro.ColorPicker('#color-picker-container', {
@@ -39,16 +45,30 @@ class App extends Component {
     // print the color's new hex value to the developer console
     if (color.hexString !== this.state.textHex) {
       this.setState({ textHex: color.hexString })
-      console.log(color.hexString)
     }
   }
-
+  handleChange = e => {
+    let value = e.target.value
+    if (value === '' || value.length === 3 || value.length === 6) {
+      value = '#' + value
+      this.setState({ backgroundColor: value })
+    }
+  }
   render () {
-    const { textHex } = this.state
+    const { textHex, backgroundColor } = this.state
     return (
       <div className='App'>
         <div id='color-picker-container' />
-        <HexDisplay color={textHex}>{textHex}</HexDisplay>
+        <div>background color</div>
+        #
+        <input
+          onChange={e => {
+            this.handleChange(e)
+          }}
+        />
+        <HexDisplay backgroundColor={backgroundColor} color={textHex}>
+          {textHex}
+        </HexDisplay>
       </div>
     )
   }
