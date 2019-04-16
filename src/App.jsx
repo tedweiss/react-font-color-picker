@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import iro from '@jaames/iro'
+
+const HexDisplay = styled.div`
+  color: ${props => props.color};
+  text-align: center;
+`
 
 class App extends Component {
   constructor () {
@@ -41,7 +47,7 @@ class App extends Component {
     return (
       <div className='App'>
         <div id='color-picker-container' />
-        <div style={{ textAlign: 'center', color: textHex }}>{textHex}</div>
+        <HexDisplay color={textHex}>{textHex}</HexDisplay>
       </div>
     )
   }
