@@ -4,6 +4,7 @@ import iro from '@jaames/iro'
 
 const HexDisplay = styled.div`
   color: ${props => props.color};
+  font-size: 20px;
   text-align: center;
 `
 
